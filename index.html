@@ -8,21 +8,25 @@
 </head>
 <body>
   <div id="main-menu" class="screen">
-    <div class="left-panel">
-      <h1>LA CRUZ</h1>
-      <button onclick="startGame()">Jugar</button>
-      <button onclick="showOptions()">Opciones</button>
-      <button onclick="exitGame()">Salir</button>
-    </div>
-    <div class="right-panel">
-      <h2>Finales desbloqueados</h2>
-      <div class="tv-grid">
-        <div class="tv">???</div>
-        <div class="tv">???</div>
-        <div class="tv">???</div>
-        <div class="tv">???</div>
-        <div class="tv">???</div>
-        <div class="tv">???</div>
+    <div class="tv-room-bg">
+      <div class="tv-screen left">
+        <ul class="menu-buttons">
+          <li onclick="startGame()">INICIAR JUEGO</li>
+          <li onclick="showCustomization()">PERSONALIZACIÓN</li>
+          <li onclick="showOptions()">OPCIONES</li>
+          <li onclick="exitGame()">SALIR</li>
+        </ul>
+      </div>
+      <div class="tv-wall right">
+        <h2>Finales desbloqueados</h2>
+        <div class="tv-grid">
+          <div class="tv">???</div>
+          <div class="tv">???</div>
+          <div class="tv">???</div>
+          <div class="tv">???</div>
+          <div class="tv">???</div>
+          <div class="tv">???</div>
+        </div>
       </div>
     </div>
   </div>
