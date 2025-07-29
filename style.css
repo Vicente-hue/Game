@@ -1,76 +1,26 @@
 body {
-  margin: 0;
-  font-family: 'Courier New', monospace;
-  background-color: black;
-  color: #0ff;
+  color: white;
+  font-family: Arial, sans-serif;
   text-align: center;
+  background-color: black;
 }
 
-.hidden {
-  display: none;
+.menu-container, .contenido-juego {
+  padding: 20px;
 }
 
-#menu {
-  padding: 2rem;
-}
-
-#customization, #confirm-exit, #game {
-  padding: 2rem;
-}
-
-button {
-  background: black;
-  border: 2px solid #0ff;
-  color: #0ff;
-  padding: 0.5rem 1rem;
-  margin: 0.5rem;
+.avatar {
+  width: 100px;
   cursor: pointer;
+  border: 2px solid white;
+  margin: 10px;
 }
 
-button:hover {
-  background: #0ff;
-  color: black;
+.avatar-grande {
+  width: 200px;
 }
 
-#hud {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  display: flex;
-  gap: 10px;
-  align-items: center;
+.icono {
+  width: 40px;
+  margin: 5px;
 }
-
-#hud img {
-  width: 32px;
-  height: 32px;
-}
-
-.preview img {
-  max-height: 200px;
-  margin-top: 1rem;
-}
-
-#story {
-  margin-top: 100px;
-}
-
-#choices button {
-  display: block;
-  margin: 1rem auto;
-  width: 60%;
-}
-
-#changeNotice {
-  margin-top: 20px;
-  font-style: italic;
-  color: red;
-  font-weight: bold;
-}
-
-#timer {
-  margin-top: 10px;
-  font-size: 2rem;
-  color: orange;
-}
-
