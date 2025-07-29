@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Opciones</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Opciones del Juego</h1>
+
+  <h2>Audio</h2>
+  <label>Volumen ambiente: <input type="range" id="ambiente" min="0" max="100"></label><br>
+  <label>Volumen efectos: <input type="range" id="efectos" min="0" max="100"></label><br>
+  <label>Volumen música: <input type="range" id="musica" min="0" max="100"></label>
+
+  <h2>Gráficos</h2>
+  <label>Calidad gráfica:
+    <select id="graficos">
+      <option value="baja">Baja</option>
+      <option value="media">Media</option>
+      <option value="alta">Alta</option>
+    </select>
+  </label><br>
+
+  <label>Sombras:
+    <select id="sombras">
+      <option value="si">Sí</option>
+      <option value="no">No</option>
+    </select>
+  </label><br><br>
+
+  <button onclick="guardar()">Guardar y aplicar</button>
+  <button onclick="salir()">Salir sin guardar</button>
+
+  <script>
+    let cambios = false;
+
+    const inputs = document.querySelectorAll("input, select");
+    inputs.forEach(input => {
+      input.addEventListener("change", () => cambios = true);
+    });
+
+    function guardar() {
+      localStorage.setItem("ambiente", document.getElementById("ambiente").value);
+      localStorage.setItem("efectos", document.getElementById("efectos").value);
+      localStorage.setItem("musica", document.getElementById("musica").value);
+      localStorage.setItem("graficos", document.getElementById("graficos").value);
+      localStorage.setItem("sombras", document.getElementById("sombras").value);
+      cambios = false;
+      alert("Configuración guardada.");
+    }
+
+    function salir() {
+      if (cambios) {
+        const confirmacion = confirm("¿Seguro que quieres salir sin guardar los cambios?");
+        if (!confirmacion) return;
+      }
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
