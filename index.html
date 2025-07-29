@@ -113,20 +113,49 @@
       text-align: center;
     }
 
-    @keyframes flicker {
-      0% {
-        opacity: 0.95;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        opacity: 0.95;
-      }
+    .options-screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: #0ff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .options-group {
+      margin: 1rem;
+    }
+
+    .options-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .confirmation-box {
+      background: rgba(0,0,0,0.8);
+      border: 2px solid red;
+      padding: 1rem;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
     }
 
     .hidden {
       display: none;
+    }
+
+    @keyframes flicker {
+      0% { opacity: 0.95; }
+      50% { opacity: 1; }
+      100% { opacity: 0.95; }
     }
   </style>
 </head>
@@ -174,12 +203,43 @@
     </div>
   </div>
 
+  <div class="options-screen hidden" id="options-screen">
+    <div class="options-group">
+      <label>Volumen de ambiente: <input type="range" id="ambience" min="0" max="100"></label>
+      <label>Volumen de efectos: <input type="range" id="effects" min="0" max="100"></label>
+      <label>Volumen de música: <input type="range" id="music" min="0" max="100"></label>
+    </div>
+    <div class="options-group">
+      <label>Calidad gráfica:
+        <select id="graphics">
+          <option value="low">Baja</option>
+          <option value="medium">Media</option>
+          <option value="high">Alta</option>
+        </select>
+      </label>
+      <label><input type="checkbox" id="shadows"> Sombras</label>
+    </div>
+    <div>
+      <button onclick="saveOptions()">GUARDAR Y APLICAR</button>
+      <button onclick="exitOptions()">SALIR SIN GUARDAR</button>
+    </div>
+  </div>
+
+  <div class="confirmation-box" id="confirmation-box">
+    <p>¿Seguro que quieres salir sin guardar los cambios?</p>
+    <button onclick="confirmExitOptions(true)">Sí</button>
+    <button onclick="confirmExitOptions(false)">No</button>
+  </div>
+
   <script>
     let playerCustomization = {
       gender: 'male',
       skin: 'light',
       hair: 'short'
     };
+
+    let savedOptions = {};
+    let tempOptions = {};
 
     function showCustomization() {
       document.getElementById('menu-container').style.display = 'none';
@@ -202,7 +262,55 @@
     }
 
     function showOptions() {
-      alert('Ir a las opciones...');
+      document.getElementById('menu-container').style.display = 'none';
+      document.getElementById('options-screen').classList.remove('hidden');
+
+      tempOptions = {
+        ambience: document.getElementById('ambience').value,
+        effects: document.getElementById('effects').value,
+        music: document.getElementById('music').value,
+        graphics: document.getElementById('graphics').value,
+        shadows: document.getElementById('shadows').checked
+      };
+
+      savedOptions = { ...tempOptions };
+    }
+
+    function saveOptions() {
+      savedOptions = {
+        ambience: document.getElementById('ambience').value,
+        effects: document.getElementById('effects').value,
+        music: document.getElementById('music').value,
+        graphics: document.getElementById('graphics').value,
+        shadows: document.getElementById('shadows').checked
+      };
+      document.getElementById('options-screen').classList.add('hidden');
+      document.getElementById('menu-container').style.display = 'flex';
+    }
+
+    function exitOptions() {
+      const current = {
+        ambience: document.getElementById('ambience').value,
+        effects: document.getElementById('effects').value,
+        music: document.getElementById('music').value,
+        graphics: document.getElementById('graphics').value,
+        shadows: document.getElementById('shadows').checked
+      };
+
+      if (JSON.stringify(current) !== JSON.stringify(savedOptions)) {
+        document.getElementById('confirmation-box').style.display = 'block';
+      } else {
+        document.getElementById('options-screen').classList.add('hidden');
+        document.getElementById('menu-container').style.display = 'flex';
+      }
+    }
+
+    function confirmExitOptions(confirm) {
+      document.getElementById('confirmation-box').style.display = 'none';
+      if (confirm) {
+        document.getElementById('options-screen').classList.add('hidden');
+        document.getElementById('menu-container').style.display = 'flex';
+      }
     }
 
     function exitGame() {
