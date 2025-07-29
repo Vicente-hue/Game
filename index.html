@@ -2,72 +2,15 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>La Cruz - El Juego</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>La Cruz - Menú Principal</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
-<body>
-  <div id="menu">
-    <h1>MENÚ PRINCIPAL</h1>
-    <button onclick="startGame()">INICIAR JUEGO</button>
-    <button onclick="openCustomization()">PERSONALIZACIÓN</button>
+<body style="background-image: url('assets/Fondo menu.jpg.jpg'); background-size: cover;">
+  <div class="menu-container">
+    <h1>Bienvenido a La Cruz</h1>
+    <button onclick="location.href='personalizacion.html'">Iniciar Juego</button>
+    <button onclick="location.href='opciones.html'">Opciones</button>
   </div>
-
-  <!-- Personalización -->
-  <div id="customization" class="hidden">
-    <h2>Personaliza tu personaje</h2>
-    <label>Nombre: <input type="text" id="playerName" /></label><br />
-    <label>Género:
-      <select id="gender">
-        <option value="masculino">Masculino</option>
-        <option value="femenino">Femenino</option>
-      </select>
-    </label><br />
-    <label>Color de piel:
-      <select id="skin">
-        <option value="clara">Clara</option>
-        <option value="oscura">Oscura</option>
-      </select>
-    </label><br />
-    <label>Estilo de pelo:
-      <select id="hair">
-        <option value="corto">Corto</option>
-        <option value="largo">Largo</option>
-      </select>
-    </label><br />
-    <div class="preview">
-      <img id="previewImage" src="assets/images/personaje-masculino.png" alt="Previsualización" />
-    </div>
-    <button onclick="saveCustomization()">Guardar y salir</button>
-    <button onclick="confirmExit()">Salir sin guardar</button>
-  </div>
-
-  <!-- Confirmación al salir sin guardar -->
-  <div id="confirm-exit" class="hidden">
-    <p>¿Seguro que quieres salir sin guardar los cambios?</p>
-    <button onclick="exitWithoutSaving()">Sí</button>
-    <button onclick="cancelExit()">No</button>
-  </div>
-
-  <!-- Juego -->
-  <div id="game" class="hidden">
-    <div id="hud">
-      <img src="assets/images/icono-cerebro.png" title="Frialdad" />
-      <span id="brainCount">0</span>
-      <img src="assets/images/icono-corazon.png" title="Calma" />
-      <span id="heartCount">0</span>
-      <img src="assets/images/icono-trebol.png" title="Suerte" />
-      <span id="luckCount">0</span>
-    </div>
-
-    <div id="story">
-      <p id="storyText"></p>
-      <div id="choices" class="hidden"></div>
-      <div id="changeNotice" class="hidden">El rumbo de la historia ha cambiado...</div>
-      <div id="timer" class="hidden">20</div>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
 </body>
 </html>
