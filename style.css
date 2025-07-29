@@ -1,1 +1,76 @@
+body {
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  background-color: black;
+  color: #0ff;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+#menu {
+  padding: 2rem;
+}
+
+#customization, #confirm-exit, #game {
+  padding: 2rem;
+}
+
+button {
+  background: black;
+  border: 2px solid #0ff;
+  color: #0ff;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0ff;
+  color: black;
+}
+
+#hud {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+#hud img {
+  width: 32px;
+  height: 32px;
+}
+
+.preview img {
+  max-height: 200px;
+  margin-top: 1rem;
+}
+
+#story {
+  margin-top: 100px;
+}
+
+#choices button {
+  display: block;
+  margin: 1rem auto;
+  width: 60%;
+}
+
+#changeNotice {
+  margin-top: 20px;
+  font-style: italic;
+  color: red;
+  font-weight: bold;
+}
+
+#timer {
+  margin-top: 10px;
+  font-size: 2rem;
+  color: orange;
+}
 
