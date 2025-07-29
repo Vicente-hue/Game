@@ -1,1 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Personaliza tu Personaje</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Personaliza tu personaje</h1>
 
+  <label for="nombre">Tu nombre:</label>
+  <input type="text" id="nombre" placeholder="Escribe tu nombre"/>
+
+  <h2>Selecciona tu personaje:</h2>
+  <div class="avatar-selection">
+    <label>
+      <input type="radio" name="avatar" value="hombre" checked>
+      <img src="assets/imagenes/Personaje-Hombre.png" alt="Hombre" class="avatar">
+    </label>
+    <label>
+      <input type="radio" name="avatar" value="mujer">
+      <img src="assets/imagenes/Personaje-Mujer.png" alt="Mujer" class="avatar">
+    </label>
+  </div>
+
+  <button onclick="guardarPersonalizacion()">Comenzar Juego</button>
+
+  <script>
+    function guardarPersonalizacion() {
+      const nombre = document.getElementById("nombre").value;
+      const avatar = document.querySelector('input[name="avatar"]:checked').value;
+
+      localStorage.setItem("nombreJugador", nombre);
+      localStorage.setItem("avatarJugador", avatar);
+
+      window.location.href = "juego.html";
+    }
+  </script>
+</body>
+</html>
