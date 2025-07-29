@@ -65,22 +65,31 @@
       height: 100vh;
       background-color: rgba(0, 0, 0, 0.85);
       display: flex;
-      justify-content: center;
+      justify-content: space-around;
       align-items: center;
-      gap: 3rem;
+      padding: 2rem;
     }
 
     .character-preview {
       flex: 1;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      transform: scale(1.4);
     }
 
     .character-preview img {
-      max-height: 80vh;
+      height: 300px;
       transition: all 0.3s ease;
+    }
+
+    .controls {
+      margin-top: 1rem;
+    }
+
+    .controls label,
+    .controls select {
+      color: #0ff;
+      margin: 0.3rem;
     }
 
     .endings-panel {
@@ -101,6 +110,7 @@
       color: #0ff;
       font-size: 0.8rem;
       box-shadow: 0 0 10px #0ff;
+      text-align: center;
     }
 
     @keyframes flicker {
@@ -133,25 +143,61 @@
 
   <div class="customization-screen hidden" id="customization-screen">
     <div class="character-preview">
-      <img src="assets/images/character.png.png" alt="Personaje en camilla" id="character-img" />
+      <img src="assets/images/character-male.png" alt="Personaje" id="character-img" />
+      <div class="controls">
+        <label for="gender">Género:</label>
+        <select id="gender" onchange="updateCharacter()">
+          <option value="male">Hombre</option>
+          <option value="female">Mujer</option>
+        </select>
+        <label for="skin">Piel:</label>
+        <select id="skin" onchange="updateCharacter()">
+          <option value="light">Clara</option>
+          <option value="medium">Media</option>
+          <option value="dark">Oscura</option>
+        </select>
+        <label for="hair">Cabello:</label>
+        <select id="hair" onchange="updateCharacter()">
+          <option value="short">Corto</option>
+          <option value="long">Largo</option>
+          <option value="punk">Punk</option>
+        </select>
+      </div>
     </div>
     <div class="endings-panel">
-      <div class="ending-box">Final 1</div>
-      <div class="ending-box">Final 2</div>
-      <div class="ending-box">Final 3</div>
-      <div class="ending-box">Final 4</div>
-      <div class="ending-box">Final 5</div>
-      <div class="ending-box">Final 6</div>
+      <div class="ending-box">Muerte Absoluta</div>
+      <div class="ending-box">Final Malo</div>
+      <div class="ending-box">Final Interrogante</div>
+      <div class="ending-box">Final Bueno</div>
+      <div class="ending-box">Final Excelente</div>
+      <div class="ending-box">¿?</div>
     </div>
   </div>
 
   <script>
+    let playerCustomization = {
+      gender: 'male',
+      skin: 'light',
+      hair: 'short'
+    };
+
     function showCustomization() {
       document.getElementById('menu-container').style.display = 'none';
       document.getElementById('customization-screen').classList.remove('hidden');
     }
 
+    function updateCharacter() {
+      const gender = document.getElementById('gender').value;
+      const skin = document.getElementById('skin').value;
+      const hair = document.getElementById('hair').value;
+      playerCustomization = { gender, skin, hair };
+
+      const imgPath = `assets/images/character-${gender}-${skin}-${hair}.png`;
+      document.getElementById('character-img').src = imgPath;
+    }
+
     function startGame() {
+      console.log("Datos del personaje:", playerCustomization);
       alert('Inicia el juego...');
     }
 
