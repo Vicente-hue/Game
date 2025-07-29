@@ -1,104 +1,94 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Juego de Suspenso</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personalización del Personaje</title>
 <style>
-  body { background: black; color: white; font-family: Arial, sans-serif; padding: 20px; }
-  .hidden { display: none; }
-  .choices button { background: #333; color: white; padding: 10px; margin: 10px; border: none; cursor: pointer; }
-  .choices button:hover { background: #555; }
-  .points { margin-top: 10px; }
-  .fade-in { animation: fadeIn 1.5s ease-in-out forwards; }
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  .tv-frame { display: flex; justify-content: center; margin-top: 20px; }
-  .tv-frame img { max-width: 80%; border: 5px solid #333; box-shadow: 0 0 20px red; display: none; }
+  body { background: black; color: white; font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+  .preview { margin: 20px; }
+  .character { width: 150px; height: 300px; background: gray; margin: auto; border: 3px solid #fff; }
+  select { margin: 10px; padding: 5px; }
+  button { background: #222; color: white; padding: 10px 20px; margin-top: 20px; border: none; cursor: pointer; }
+  button:hover { background: #444; }
 </style>
 </head>
 <body>
 
-<h1>🌧️ Noche de Tormenta</h1>
-<div id="story"></div>
-<div class="tv-frame">
-  <img id="tvImage" src="A_still_frame_from_an_old_CRT_television_screen_di.png" alt="Criminal en TV">
-</div>
-<div class="choices hidden" id="choices"></div>
-<div class="points">
-  ❤️ Calma: <span id="calma">0</span> |
-  🧠 Psicológico: <span id="psico">0</span>
+<h1>🎮 Personaliza tu Personaje</h1>
+
+<div class="preview">
+  <div class="character" id="characterPreview"></div>
 </div>
 
-<audio id="lluvia" src="https://www.soundjay.com/nature/rain-01.mp3" loop></audio>
-<audio id="trueno" src="https://www.soundjay.com/nature/thunder-01.mp3"></audio>
-<audio id="ladrido" src="https://www.soundjay.com/animal/dog-bark-01.mp3"></audio>
-<audio id="rama" src="https://www.soundjay.com/nature/tree-branch-break-01.mp3"></audio>
-<audio id="latido" src="https://www.soundjay.com/human/heartbeat-01.mp3"></audio>
+<div>
+  <label>Género:</label>
+  <select id="gender" onchange="updatePreview()">
+    <option value="hombre">Hombre</option>
+    <option value="mujer">Mujer</option>
+  </select>
+</div>
+
+<div>
+  <label>Color de pelo:</label>
+  <select id="hair" onchange="updatePreview()">
+    <option value="negro">Negro</option>
+    <option value="rubio">Rubio</option>
+    <option value="rojo">Rojo</option>
+    <option value="castaño">Castaño</option>
+  </select>
+</div>
+
+<div>
+  <label>Altura:</label>
+  <select id="height" onchange="updatePreview()">
+    <option value="bajo">Bajo</option>
+    <option value="medio" selected>Medio</option>
+    <option value="alto">Alto</option>
+  </select>
+</div>
+
+<button onclick="startStory()">Continuar</button>
+
+<audio id="tvOn" src="https://www.soundjay.com/button/beep-07.wav"></audio>
 
 <script>
-const storyEl = document.getElementById("story");
-const choicesEl = document.getElementById("choices");
-const calmaEl = document.getElementById("calma");
-const psicoEl = document.getElementById("psico");
-const tvImage = document.getElementById("tvImage");
+function updatePreview() {
+  const gender = document.getElementById("gender").value;
+  const hair = document.getElementById("hair").value;
+  const height = document.getElementById("height").value;
 
-let calma = 0;
-let psico = 0;
+  const preview = document.getElementById("characterPreview");
+  let color;
 
-function showText(text, callback) {
-  let i = 0;
-  storyEl.innerHTML = "";
-  const interval = setInterval(() => {
-    storyEl.innerHTML += text[i];
-    i++;
-    if (i >= text.length) {
-      clearInterval(interval);
-      if (callback) setTimeout(callback, 1000);
-    }
-  }, 40);
-}
-
-function startGame() {
-  document.getElementById("lluvia").play();
-  showText("Era una noche muy lluviosa... El reloj marcaba las 12:00 AM. Jugando un shooter, las horas pasaron... 🕒 3:33 AM.", () => {
-    document.getElementById("trueno").play();
-    showText("📺 Una televisión antigua se enciende... 'Última hora: un criminal muy peligroso ha escapado y está cerca de La Cruz...'", () => {
-      tvImage.style.display = "block"; // Mostrar imagen del criminal
-      setTimeout(() => { tvImage.style.display = "none"; }, 4000); // Ocultar después de 4s
-      showText("🐕 Spyke empieza a ladrar fuerte tras un trueno.", () => {
-        document.getElementById("ladrido").play();
-        showText("El personaje dice: 'Spyke, ¡cállate!' La tormenta se intensifica... 🌬️🌩️", () => {
-          document.getElementById("rama").play();
-          showChoices();
-        });
-      });
-    });
-  });
-}
-
-function showChoices() {
-  choicesEl.classList.remove("hidden");
-  choicesEl.innerHTML = `
-    <button onclick="choose('A')">🅰️ Asomarse por la ventana</button>
-    <button onclick="choose('B')">🅱️ Ignorar ruido y calmar a Spyke</button>
-  `;
-}
-
-function choose(option) {
-  choicesEl.classList.add("hidden");
-  document.getElementById("latido").play();
-  if (option === "A") {
-    calma++;
-    calmaEl.textContent = calma;
-    showText("Te acercas lentamente a la ventana... Suspenso en el aire... Solo una rama caída... pero jurarías haber visto una sombra moverse... ❤️ +1");
-  } else {
-    psico++;
-    psicoEl.textContent = psico;
-    showText("Ignoras el ruido y acaricias a Spyke... poco a poco deja de ladrar. 🧠 +1");
+  switch (hair) {
+    case "negro": color = "black"; break;
+    case "rubio": color = "gold"; break;
+    case "rojo": color = "red"; break;
+    case "castaño": color = "saddlebrown"; break;
   }
+
+  preview.style.background = color;
+  preview.style.height = height === "alto" ? "320px" : height === "bajo" ? "250px" : "300px";
 }
 
-startGame();
+function startStory() {
+  // Guarda datos
+  const character = {
+    gender: document.getElementById("gender").value,
+    hair: document.getElementById("hair").value,
+    height: document.getElementById("height").value
+  };
+  localStorage.setItem("characterData", JSON.stringify(character));
+
+  // Sonido de TV encendiéndose
+  document.getElementById("tvOn").play();
+
+  // Redirige a la historia
+  setTimeout(() => { window.location.href = "historia.html"; }, 1000);
+}
+
+updatePreview();
 </script>
 
 </body>
