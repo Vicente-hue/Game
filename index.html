@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>La Cruz - El Juego</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
   <style>
     body {
       margin: 0;
@@ -104,9 +104,19 @@
     }
 
     @keyframes flicker {
-      0% { opacity: 0.95; }
-      50% { opacity: 1; }
-      100% { opacity: 0.95; }
+      0% {
+        opacity: 0.95;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0.95;
+      }
+    }
+
+    .hidden {
+      display: none;
     }
   </style>
 </head>
@@ -123,7 +133,7 @@
 
   <div class="customization-screen hidden" id="customization-screen">
     <div class="character-preview">
-      <img src="assets/images/character.png" alt="Personaje en camilla" id="character-img">
+      <img src="assets/images/character.png" alt="Personaje en camilla" id="character-img" />
     </div>
     <div class="endings-panel">
       <div class="ending-box">Final 1</div>
@@ -142,15 +152,15 @@
     }
 
     function startGame() {
-      alert("Inicia el juego...");
+      alert('Inicia el juego...');
     }
 
     function showOptions() {
-      alert("Ir a las opciones...");
+      alert('Ir a las opciones...');
     }
 
     function exitGame() {
-      alert("Salir del juego");
+      alert('Salir del juego');
     }
   </script>
 </body>
