@@ -1,131 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Personalización del Personaje</title>
-<style>
-  body { background: black; color: white; font-family: Arial, sans-serif; text-align: center; padding: 20px; }
-  .preview { margin: 20px; }
-  .character { width: 150px; margin: auto; border: 3px solid #fff; display: flex; flex-direction: column; align-items: center; }
-  .head { width: 80px; height: 80px; border-radius: 50%; margin-top: 10px; position: relative; }
-  .hair { width: 80px; height: 30px; position: absolute; top: 0; border-radius: 50%; }
-  .body { width: 60px; background: gray; margin-top: 5px; }
-  select { margin: 10px; padding: 5px; }
-  button { background: #222; color: white; padding: 10px 20px; margin-top: 20px; border: none; cursor: pointer; }
-  button:hover { background: #444; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Cruz - El Juego</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<h1>🎮 Personaliza tu Personaje</h1>
-
-<div class="preview">
-  <div class="character" id="characterPreview">
-    <div class="head" id="head">
-      <div class="hair" id="hairStyle"></div>
+  <div id="main-menu" class="screen">
+    <div class="left-panel">
+      <h1>LA CRUZ</h1>
+      <button onclick="startGame()">Jugar</button>
+      <button onclick="showOptions()">Opciones</button>
+      <button onclick="exitGame()">Salir</button>
     </div>
-    <div class="body" id="body"></div>
+    <div class="right-panel">
+      <h2>Finales desbloqueados</h2>
+      <div class="tv-grid">
+        <div class="tv">???</div>
+        <div class="tv">???</div>
+        <div class="tv">???</div>
+        <div class="tv">???</div>
+        <div class="tv">???</div>
+        <div class="tv">???</div>
+      </div>
+    </div>
   </div>
-</div>
 
-<div>
-  <label>Género:</label>
-  <select id="gender" onchange="updatePreview()">
-    <option value="hombre">Hombre</option>
-    <option value="mujer">Mujer</option>
-  </select>
-</div>
+  <div id="game-screen" class="screen hidden">
+    <div id="character-display"></div>
+    <div id="story-text"></div>
+    <div id="choices"></div>
+    <div id="status">
+      <span>💖 Calma: <span id="calma">0</span></span>
+      <span>🧠 Psicológico: <span id="psico">0</span></span>
+    </div>
+  </div>
 
-<div>
-  <label>Color de piel:</label>
-  <select id="skin" onchange="updatePreview()">
-    <option value="blanco">Blanco</option>
-    <option value="moreno">Moreno</option>
-    <option value="trigueño">Trigueño</option>
-    <option value="negro">Negro</option>
-  </select>
-</div>
+  <div id="options-screen" class="screen hidden">
+    <h2>Opciones</h2>
+    <label>Brillo: <input type="range" min="0.5" max="2" step="0.1" value="1" onchange="setBrightness(this.value)"></label>
+    <label>Sonido: <input type="range" min="0" max="1" step="0.1" value="1" onchange="setVolume(this.value)"></label>
+    <label>Calidad: 
+      <select onchange="setQuality(this.value)">
+        <option value="baja">Baja</option>
+        <option value="media">Media</option>
+        <option value="alta" selected>Alta</option>
+      </select>
+    </label>
+    <button onclick="backToMenu()">Volver</button>
+  </div>
 
-<div>
-  <label>Color de pelo:</label>
-  <select id="hair" onchange="updatePreview()">
-    <option value="negro">Negro</option>
-    <option value="rubio">Rubio</option>
-    <option value="rojo">Rojo</option>
-    <option value="castaño">Castaño</option>
-  </select>
-</div>
+  <audio id="tv-static" src="assets/sounds/tv_static.mp3"></audio>
+  <audio id="thunder" src="assets/sounds/thunder.mp3"></audio>
+  <audio id="wind" src="assets/sounds/wind.mp3"></audio>
+  <audio id="bark" src="assets/sounds/dog_bark.mp3"></audio>
+  <audio id="crack" src="assets/sounds/branch_crack.mp3"></audio>
 
-<div>
-  <label>Altura:</label>
-  <select id="height" onchange="updatePreview()">
-    <option value="bajo">Bajo</option>
-    <option value="medio" selected>Medio</option>
-    <option value="alto">Alto</option>
-  </select>
-</div>
-
-<button onclick="startStory()">Continuar</button>
-
-<audio id="tvOn" src="https://www.soundjay.com/button/beep-07.wav"></audio>
-
-<script>
-function updatePreview() {
-  const skin = document.getElementById("skin").value;
-  const hair = document.getElementById("hair").value;
-  const height = document.getElementById("height").value;
-
-  const head = document.getElementById("head");
-  const hairStyle = document.getElementById("hairStyle");
-  const body = document.getElementById("body");
-
-  // Colores de piel
-  let skinColor;
-  switch (skin) {
-    case "blanco": skinColor = "#ffe0bd"; break;
-    case "moreno": skinColor = "#c68642"; break;
-    case "trigueño": skinColor = "#8d5524"; break;
-    case "negro": skinColor = "#3d2b1f"; break;
-  }
-
-  // Colores de pelo
-  let hairColor;
-  switch (hair) {
-    case "negro": hairColor = "black"; break;
-    case "rubio": hairColor = "gold"; break;
-    case "rojo": hairColor = "red"; break;
-    case "castaño": hairColor = "saddlebrown"; break;
-  }
-
-  // Altura
-  let bodyHeight;
-  switch (height) {
-    case "bajo": bodyHeight = "100px"; break;
-    case "medio": bodyHeight = "130px"; break;
-    case "alto": bodyHeight = "160px"; break;
-  }
-
-  head.style.background = skinColor;
-  hairStyle.style.background = hairColor;
-  body.style.height = bodyHeight;
-}
-
-function startStory() {
-  const character = {
-    gender: document.getElementById("gender").value,
-    skin: document.getElementById("skin").value,
-    hair: document.getElementById("hair").value,
-    height: document.getElementById("height").value
-  };
-  localStorage.setItem("characterData", JSON.stringify(character));
-
-  document.getElementById("tvOn").play();
-  setTimeout(() => { window.location.href = "historia.html"; }, 1000);
-}
-
-updatePreview();
-</script>
-
+  <script src="main.js"></script>
 </body>
 </html>
