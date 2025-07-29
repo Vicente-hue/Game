@@ -7,7 +7,10 @@
 <style>
   body { background: black; color: white; font-family: Arial, sans-serif; text-align: center; padding: 20px; }
   .preview { margin: 20px; }
-  .character { width: 150px; height: 300px; background: gray; margin: auto; border: 3px solid #fff; }
+  .character { width: 150px; margin: auto; border: 3px solid #fff; display: flex; flex-direction: column; align-items: center; }
+  .head { width: 80px; height: 80px; border-radius: 50%; margin-top: 10px; position: relative; }
+  .hair { width: 80px; height: 30px; position: absolute; top: 0; border-radius: 50%; }
+  .body { width: 60px; background: gray; margin-top: 5px; }
   select { margin: 10px; padding: 5px; }
   button { background: #222; color: white; padding: 10px 20px; margin-top: 20px; border: none; cursor: pointer; }
   button:hover { background: #444; }
@@ -18,7 +21,12 @@
 <h1>🎮 Personaliza tu Personaje</h1>
 
 <div class="preview">
-  <div class="character" id="characterPreview"></div>
+  <div class="character" id="characterPreview">
+    <div class="head" id="head">
+      <div class="hair" id="hairStyle"></div>
+    </div>
+    <div class="body" id="body"></div>
+  </div>
 </div>
 
 <div>
@@ -26,6 +34,16 @@
   <select id="gender" onchange="updatePreview()">
     <option value="hombre">Hombre</option>
     <option value="mujer">Mujer</option>
+  </select>
+</div>
+
+<div>
+  <label>Color de piel:</label>
+  <select id="skin" onchange="updatePreview()">
+    <option value="blanco">Blanco</option>
+    <option value="moreno">Moreno</option>
+    <option value="trigueño">Trigueño</option>
+    <option value="negro">Negro</option>
   </select>
 </div>
 
@@ -54,37 +72,55 @@
 
 <script>
 function updatePreview() {
-  const gender = document.getElementById("gender").value;
+  const skin = document.getElementById("skin").value;
   const hair = document.getElementById("hair").value;
   const height = document.getElementById("height").value;
 
-  const preview = document.getElementById("characterPreview");
-  let color;
+  const head = document.getElementById("head");
+  const hairStyle = document.getElementById("hairStyle");
+  const body = document.getElementById("body");
 
-  switch (hair) {
-    case "negro": color = "black"; break;
-    case "rubio": color = "gold"; break;
-    case "rojo": color = "red"; break;
-    case "castaño": color = "saddlebrown"; break;
+  // Colores de piel
+  let skinColor;
+  switch (skin) {
+    case "blanco": skinColor = "#ffe0bd"; break;
+    case "moreno": skinColor = "#c68642"; break;
+    case "trigueño": skinColor = "#8d5524"; break;
+    case "negro": skinColor = "#3d2b1f"; break;
   }
 
-  preview.style.background = color;
-  preview.style.height = height === "alto" ? "320px" : height === "bajo" ? "250px" : "300px";
+  // Colores de pelo
+  let hairColor;
+  switch (hair) {
+    case "negro": hairColor = "black"; break;
+    case "rubio": hairColor = "gold"; break;
+    case "rojo": hairColor = "red"; break;
+    case "castaño": hairColor = "saddlebrown"; break;
+  }
+
+  // Altura
+  let bodyHeight;
+  switch (height) {
+    case "bajo": bodyHeight = "100px"; break;
+    case "medio": bodyHeight = "130px"; break;
+    case "alto": bodyHeight = "160px"; break;
+  }
+
+  head.style.background = skinColor;
+  hairStyle.style.background = hairColor;
+  body.style.height = bodyHeight;
 }
 
 function startStory() {
-  // Guarda datos
   const character = {
     gender: document.getElementById("gender").value,
+    skin: document.getElementById("skin").value,
     hair: document.getElementById("hair").value,
     height: document.getElementById("height").value
   };
   localStorage.setItem("characterData", JSON.stringify(character));
 
-  // Sonido de TV encendiéndose
   document.getElementById("tvOn").play();
-
-  // Redirige a la historia
   setTimeout(() => { window.location.href = "historia.html"; }, 1000);
 }
 
