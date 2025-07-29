@@ -1,103 +1,99 @@
-body {
-  margin: 0;
-  padding: 0;
-  background-color: black;
-  font-family: 'Courier New', monospace;
-  color: #0ff;
-  overflow: hidden;
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Cruz - El Juego</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('assets/images/u4m3d90vmk071.webp') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Courier New', monospace;
+      color: #0ff;
+      overflow: hidden;
+    }
 
-.screen {
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: radial-gradient(circle, #111 40%, #000 100%);
-  animation: flickerBackground 4s infinite alternate;
-}
+    .crt {
+      position: absolute;
+      top: 20%;
+      left: 5%;
+      width: 400px;
+      height: 300px;
+      background-color: rgba(0, 0, 0, 0.75);
+      border: 4px solid #0ff;
+      box-shadow: 0 0 20px #0ff;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: left;
+      animation: flicker 2s infinite;
+    }
 
-.tv-room-bg {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  background-image: url('assets/images/tv-room.jpg');
-  background-size: cover;
-  background-position: center;
-  filter: brightness(0.7);
-  position: relative;
-}
+    .crt h1 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
 
-.tv-screen.left {
-  width: 40%;
-  padding: 2rem;
-  background: rgba(0, 0, 0, 0.6);
-  border: 2px solid #0ff;
-  box-shadow: 0 0 20px #0ff44c;
-}
+    .crt button {
+      background: transparent;
+      border: none;
+      color: #0ff;
+      font-size: 1rem;
+      margin: 0.5rem 0;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+    }
 
-.menu-buttons li {
-  list-style: none;
-  font-size: 1.5rem;
-  margin: 1rem 0;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
+    .crt button:hover {
+      color: red;
+      text-shadow: 0 0 10px red;
+    }
 
-.menu-buttons li:hover {
-  color: red;
-  text-shadow: 0 0 10px red;
-}
+    @keyframes flicker {
+      0% { opacity: 0.95; }
+      50% { opacity: 1; }
+      100% { opacity: 0.95; }
+    }
+  </style>
+</head>
+<body>
+  <div class="crt">
+    <h1>MENÚ PRINCIPAL</h1>
+    <button onclick="startGame()">INICIAR JUEGO</button>
+    <button onclick="showCustomization()">PERSONALIZACIÓN</button>
+    <button onclick="showOptions()">OPCIONES</button>
+    <button onclick="exitGame()">SALIR</button>
+  </div>
 
-.tv-wall.right {
-  width: 60%;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: start;
-  background: rgba(0, 0, 0, 0.4);
-}
+  <audio id="tv-static" src="assets/sounds/tv_static.mp3"></audio>
+  <audio id="thunder" src="assets/sounds/thunder.mp3"></audio>
+  <audio id="wind" src="assets/sounds/wind.mp3"></audio>
+  <audio id="bark" src="assets/sounds/dog_bark.mp3"></audio>
+  <audio id="crack" src="assets/sounds/branch_crack.mp3"></audio>
 
-.tv-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-top: 1rem;
-}
+  <script>
+    function startGame() {
+      alert("Inicia el juego...");
+    }
 
-.tv {
-  width: 150px;
-  height: 120px;
-  background: #222;
-  border: 3px solid #0ff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #0ff;
-  font-weight: bold;
-  box-shadow: 0 0 10px #0ff;
-  position: relative;
-  animation: glitchTV 3s infinite;
-}
+    function showCustomization() {
+      alert("Ir a la personalización...");
+    }
 
-@keyframes glitchTV {
-  0% { transform: translate(0, 0); }
-  20% { transform: translate(-1px, 1px); }
-  40% { transform: translate(1px, -1px); }
-  60% { transform: translate(-1px, -1px); }
-  80% { transform: translate(1px, 1px); }
-  100% { transform: translate(0, 0); }
-}
+    function showOptions() {
+      alert("Ir a las opciones...");
+    }
 
-@keyframes flickerBackground {
-  0% { filter: brightness(0.7); }
-  100% { filter: brightness(0.9); }
-}
-
-.hidden {
-  display: none;
-}
+    function exitGame() {
+      alert("Salir del juego");
+    }
+  </script>
+</body>
+</html>
