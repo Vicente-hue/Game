@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Inicio del Juego</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="hud">
+    <img src="assets/iconos/Calma.png" alt="Calma" class="icono">
+    <img src="assets/iconos/frialdad.png" alt="Tensión" class="icono">
+    <img src="assets/iconos/Suerte.png" alt="Suerte" class="icono">
+  </div>
+
+  <div class="contenido-juego">
+    <h1 id="saludo"></h1>
+    <img id="avatar" class="avatar-grande" />
+    <p>Es de noche... te encuentras despierto a las 3:33 A.M.</p>
+  </div>
+
+  <script>
+    const nombre = localStorage.getItem("nombreJugador") || "Jugador";
+    const avatar = localStorage.getItem("avatarJugador") || "hombre";
+
+    document.getElementById("saludo").textContent = `Hola, ${nombre}.`;
+
+    const avatarImg = document.getElementById("avatar");
+    avatarImg.src = avatar === "hombre" 
+      ? "assets/imagenes/Personaje-Hombre.png" 
+      : "assets/imagenes/Personaje-Mujer.png";
+  </script>
+</body>
+</html>
