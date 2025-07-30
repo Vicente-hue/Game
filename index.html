@@ -1,30 +1,105 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Menú Principal</title>
-  <link rel="stylesheet" href="estilos.css">
-  <audio id="staticSound" src="assets/sonidos/estatica.mp3" loop autoplay></audio>
+  <meta charset="UTF-8">
+  <title>La Cruz - Menú Principal</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: url('assets/Fondo/menu.png.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      color: white;
+    }
+
+    .menu {
+      width: 30%;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .menu button {
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      border: none;
+      margin: 10px 0;
+      padding: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .menu button:hover {
+      background-color: crimson;
+    }
+
+    .televisores {
+      width: 70%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 20px;
+      padding: 40px;
+      align-items: center;
+      justify-items: center;
+    }
+
+    .tv {
+      width: 180px;
+      height: 120px;
+      background: url('assets/iconos/estatica.gif') center center no-repeat;
+      background-size: cover;
+      border: 3px solid #fff;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .tv img {
+      position: absolute;
+      top: 35%;
+      left: 35%;
+      width: 30px;
+      height: 30px;
+      z-index: 2;
+    }
+
+  </style>
 </head>
-<body style="margin:0; background:url('assets/Fondo/menu.png') no-repeat center center; background-size: cover;">
+<body>
 
-  <div id="menu">
-    <div class="opciones">
-      <h1>Elige tu destino</h1>
-      <button onclick="location.href='historia.html'">Jugar</button>
-      <button onclick="location.href='personalizacion.html'">Personalizar</button>
-      <button onclick="location.href='opciones.html'">Opciones</button>
-      <button onclick="window.close()">Salir</button>
-    </div>
-
-    <div class="televisores">
-      <img src="Finales/FinalHorrible.png" class="tv" title="Final Horrible - Demonio" />
-      <img src="Finales/FinalMalo.png" class="tv" title="Final Malo - Muerte" />
-      <img src="Finales/FinalNeutral.png" class="tv" title="Final Neutral - Reloj" />
-      <img src="Finales/FinalBueno.png" class="tv" title="Final Bueno - Trébol" />
-      <img src="Finales/FinalExcelente.png" class="tv" title="Final Excelente - Estrella" />
-      <img src="Finales/FinalSecreto.png" class="tv" title="Final Secreto - ?" />
-    </div>
+  <div class="menu">
+    <button onclick="window.location.href='historia.html'">Jugar</button>
+    <button onclick="window.location.href='personalizacion.html'">Personalizar</button>
+    <button onclick="window.location.href='opciones.html'">Opciones</button>
+    <button onclick="salir()">Salir</button>
   </div>
+
+  <div class="televisores">
+    <div class="tv"><img src="assets/Finales/final_horrible_demonio.png" alt="Final Horrible"></div>
+    <div class="tv"><img src="assets/Finales/final_malo_muerte.png" alt="Final Malo"></div>
+    <div class="tv"><img src="assets/Finales/final_neutral_reloj.png" alt="Final Neutral"></div>
+    <div class="tv"><img src="assets/Finales/final_bueno_trebol.png" alt="Final Bueno"></div>
+    <div class="tv"><img src="assets/Finales/final_excelente_estrella.png" alt="Final Excelente"></div>
+    <div class="tv"><img src="assets/Finales/final_easteregg_interrogacion.png" alt="Final Secreto"></div>
+  </div>
+
+  <audio autoplay loop>
+    <source src="assets/sonidos/estatica.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    function salir() {
+      alert("Gracias por jugar La Cruz.");
+      // Aquí podrías redirigir a otra página o cerrar pestaña si fuera posible
+    }
+  </script>
+
 </body>
 </html>
