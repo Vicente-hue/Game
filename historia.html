@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Historia - La Cruz</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .pantalla {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 30px;
+      box-sizing: border-box;
+      background-image: url('assets/Fondo/noche_lluviosa.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .dialogo-box {
+      background-color: rgba(0, 0, 0, 0.7);
+      border: 2px solid white;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 800px;
+      font-size: 22px;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    .btn-siguiente {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: crimson;
+      border: none;
+      color: white;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      float: right;
+    }
+
+    .personaje {
+      position: absolute;
+      bottom: -10px;
+      right: -80px;
+      height: 300px;
+    }
+  </style>
+</head>
+<body>
+  <div class="pantalla">
+    <div class="dialogo-box">
+      <div id="texto"></div>
+      <button class="btn-siguiente" onclick="siguienteTexto()">Siguiente</button>
+      <img class="personaje" id="personaje-img" src="assets/imagenes/Personaje-Hombre.png" alt="Personaje">
+    </div>
+  </div>
+
+  <audio src="assets/sonidos/lluvia.mp3" autoplay loop></audio>
+
+  <script>
+    const textos = [
+      "Son las 3:33 AM. Estás despierto, como siempre, jugando en tu pieza.",
+      "Fuera llueve. El sonido constante de las gotas contra la ventana apenas tapa el zumbido de la televisión antigua.",
+      "De pronto, una alerta interrumpe todo: 'CRIMINAL PELIGROSO ESCAPADO EN LA CRUZ'.",
+      "Te estremeces. Sientes que algo no está bien. Tu perro ladra desde el pasillo.",
+      "Debes decidir si ir a ver o quedarte en tu habitación..."
+    ];
+
+    let index = 0;
+
+    const textoElemento = document.getElementById('texto');
+    const personaje = JSON.parse(localStorage.getItem('personaje')) || { genero: 'hombre' };
+    const personajeImg = document.getElementById('personaje-img');
+
+    // Mostrar imagen del personaje según lo guardado
+    personajeImg.src = personaje.genero === 'mujer'
+      ? 'assets/imagenes/Personaje-Mujer.png'
+      : 'assets/imagenes/Personaje-Hombre.png';
+
+    function siguienteTexto() {
+      if (index < textos.length) {
+        textoElemento.textContent = textos[index];
+        index++;
+      } else {
+        window.location.href = 'decision1.html';
+      }
+    }
+
+    // Mostrar el primer texto al cargar
+    window.onload = () => siguienteTexto();
+  </script>
+</body>
+</html>
