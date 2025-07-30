@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Decisión 1</title>
+  <style>
+    body {
+      background: url('assets/Fondo/menu.png.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Arial', sans-serif;
+      color: white;
+      margin: 0;
+    }
+
+    .contenedor {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      max-width: 800px;
+      margin: auto;
+      margin-top: 50px;
+      border-radius: 20px;
+      text-align: center;
+    }
+
+    .decision {
+      margin-top: 30px;
+    }
+
+    .boton {
+      background-color: crimson;
+      border: none;
+      padding: 15px 30px;
+      color: white;
+      font-size: 18px;
+      margin: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .boton:hover {
+      background-color: darkred;
+    }
+
+    .indicadores {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      margin-top: 20px;
+    }
+
+    .indicador {
+      text-align: center;
+    }
+
+    .indicador img {
+      width: 50px;
+      height: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <h2>Algo no está bien...</h2>
+    <p>Son las 3:33 A.M. y escuchas un sonido extraño proveniente del pasillo. La televisión antigua del living se enciende sola, mostrando estática.</p>
+
+    <audio src="assets/sonidos/estatica.mp3" autoplay loop></audio>
+
+    <div class="indicadores">
+      <div class="indicador">
+        <img src="assets/iconos/Calma.png" alt="Calma">
+        <p id="calma">Calma: 3</p>
+      </div>
+      <div class="indicador">
+        <img src="assets/iconos/frialdad.png" alt="Tensión">
+        <p id="tension">Tensión: 2</p>
+      </div>
+    </div>
+
+    <div class="decision">
+      <p>¿Qué haces?</p>
+      <button class="boton" onclick="elegir('mirar')">Ir a mirar qué pasa</button>
+      <button class="boton" onclick="elegir('ignorar')">Ignorar y quedarte en tu habitación</button>
+    </div>
+  </div>
+
+  <script>
+    let calma = 3;
+    let tension = 2;
+
+    function actualizarIndicadores() {
+      document.getElementById('calma').textContent = `Calma: ${calma}`;
+      document.getElementById('tension').textContent = `Tensión: ${tension}`;
+    }
+
+    function elegir(opcion) {
+      if (opcion === 'mirar') {
+        tension++;
+        calma--;
+        localStorage.setItem('decision1', 'mirar');
+        localStorage.setItem('calma', calma);
+        localStorage.setItem('tension', tension);
+        window.location.href = 'decision2.html';
+      } else {
+        calma++;
+        localStorage.setItem('decision1', 'ignorar');
+        localStorage.setItem('calma', calma);
+        localStorage.setItem('tension', tension);
+        window.location.href = 'decision2.html';
+      }
+    }
+  </script>
+</body>
+</html>
